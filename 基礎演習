@@ -1,0 +1,77 @@
+"use strict"
+
+function test(actual, expected) {
+    if (JSON.stringify(actual) === JSON.stringify(expected)) {
+        console.log("OK! Test PASSED.");
+    } else {
+        console.error("Test FAILED. Try again!");
+        console.log("    actual: ", actual);
+        console.log("  expected: ", expected);
+        console.trace();
+    }
+};
+
+  function addOne(num) {
+    return num = num + 1;
+  }
+
+  test(addOne(5), 6);
+  test(addOne(50), 51);
+
+  function doSomething(value, action) {
+    return action(value);
+  }
+
+  function greeting(name) {
+    return `こんにちは、${name}さん！`;
+  }
+
+  test(doSomething("田中", greeting), "こんにちは、田中さん！"); // 実行される
+//   test(doSomething("田中", greeting()), "こんにちは、田中さん！"); // エラー
+
+let x = "Outside x";
+
+function bar() {
+    // console.log(x);
+    let  x = "Inside x";
+    console.log(x);
+    return "Bar!";
+}
+
+bar();
+console.log(x);
+
+
+
+function createAccount(userPassword) {
+    const savedPassword = userPassword;
+  
+    function checkPassword(passwordEntered) {
+      if (savedPassword === passwordEntered) {
+        console.log("正しいパスワードです。アクセスを許可します。");
+      } else {
+        console.log("パスワードが間違っています。アクセスできません。");
+      }
+    }
+  
+    return checkPassword;
+  }
+  
+  const account = createAccount("Test7777"); // 引数に初期パスワードを入れる。
+  account("8skwob"); // 引数に間違ったパスワードを入れる => "パスワードが間違っています。アクセスできません。"
+  account("Test7777"); // 引数に正しいパスワードを入れる => "正しいパスワードです。アクセスを許可します。"
+
+
+
+  function createDonationAccount() {
+    let donations = 0;
+  
+    function addDonation() {
+      console.log(donations);
+      donations += 1;
+    }
+    console.log("寄付受付口座が作成されました。");
+    return addDonation;
+  };
+
+  createDonationAccount(1);
